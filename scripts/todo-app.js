@@ -15,20 +15,18 @@ document.querySelector('#search-text').addEventListener('input',  (e) => {
 document.querySelector('#new-todo').addEventListener('submit',  (e) => {
     e.preventDefault()
 
-    if (e.target.elements.text.value === '') {
-        alert('Empty Todo') 
-    } else {
+    const text = e.target.elements.text.value.trim()
+
+    if (text.length > 0) {
         todos.push({
             id: uuidv4(),
-            text: e.target.elements.text.value,
+            text: text,
             completed: false
         })
         localStorage.setItem('todos', JSON.stringify(todos))
         renderTodos(todos, filters)
         e.target.elements.text.value = ''
-    }
-    
-    
+    } 
 })
 
 document.querySelector('#hide-completed').addEventListener('change',  (e) => {
