@@ -14,14 +14,21 @@ document.querySelector('#search-text').addEventListener('input',  (e) => {
 
 document.querySelector('#new-todo').addEventListener('submit',  (e) => {
     e.preventDefault()
-    todos.push({
-        id: uuidv4(),
-        text: e.target.elements.text.value,
-        completed: false
-    })
-    localStorage.setItem('todos', JSON.stringify(todos))
-    renderTodos(todos, filters)
-    e.target.elements.text.value = ''
+
+    if (e.target.elements.text.value === '') {
+        alert('Empty Todo') 
+    } else {
+        todos.push({
+            id: uuidv4(),
+            text: e.target.elements.text.value,
+            completed: false
+        })
+        localStorage.setItem('todos', JSON.stringify(todos))
+        renderTodos(todos, filters)
+        e.target.elements.text.value = ''
+    }
+    
+    
 })
 
 document.querySelector('#hide-completed').addEventListener('change',  (e) => {

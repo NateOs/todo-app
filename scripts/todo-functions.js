@@ -13,7 +13,9 @@ const getSavedTodos = () => {
 //saveTodos
 
 const saveTodos = (todos) => {
-    localStorage.setItem('todos', JSON.stringify(todos))
+
+        localStorage.setItem('todos', JSON.stringify(todos))
+    
 }
 
 //removetodos
