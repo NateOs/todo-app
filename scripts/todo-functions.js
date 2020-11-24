@@ -1,4 +1,4 @@
-//Fetch existing todos from localStorage
+//Fetching already created todos
 //getSavedTodos
 const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos')
@@ -61,40 +61,57 @@ const renderTodos = (todos, filters) => {
 //Get the DOM elements for an individual note
 //generateTodoDOM
 const generateTodoDOM = (todo) => {
-    const todoEl = document.createElement('div')
+    const todoEl = document.createElement('label')
+    const containerEl = document.createElement('div')
     const checkbox = document.createElement('input') //checkbox
     const delTodo = document.createElement('button')
-    const p = document.createElement('span')
+    const todoText = document.createElement('span')
+    
+    todoText.textContent = todo.text
+    todoEl.appendChild(todoText)
 
-    p.textContent = todo.text
-    delTodo.textContent = 'x'
-    //removetodos
-    delTodo.addEventListener('click', () => {
-        removeTodo(todo.id)
-        saveTodos(todos)
-        renderTodos(todos, filters)
-    })
-
+    //checkbox
     checkbox.setAttribute('type', 'checkbox') //checkbox
     checkbox.checked = todo.completed
-    
+    containerEl.appendChild(checkbox)
     checkbox.addEventListener('change',  (e) => {
         toggleTodo(todo.id)
         saveTodos(todos)
         renderTodos(todos, filters)
     })
 
-    todoEl.appendChild(delTodo)
-    todoEl.appendChild(p)
-    todoEl.appendChild(checkbox)
+    //todotext
+    todoText.appendChild(delTodo)
+    containerEl.appendChild(todoText)
+    
+    //Setup container
+    todoEl.classList.add('list-item')
+    containerEl.classList.add('list-item__container')
+    todoEl.appendChild(containerEl)
 
-    return todoEl
+    //removetodos button
+    delTodo.textContent = 'Remove'
+    delTodo.classList.add('button', 'button--text')
+    delTodo.addEventListener('click', () => {
+        removeTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
+
+    return todoText
 }
 
 //Get the DOM elements for list summary
 //generateSummaryDOM
 const generateSummaryDOM = (incompleteTodos) => {
     const summary = document.createElement('h2')
-    summary.textContent = `You have ${incompleteTodos.length} todos left`
+    console.log(incompleteTodos.length)
+
+    if (incompleteTodos.length > 1) {
+        summary.textContent = `You have ${incompleteTodos.length} todos left`
+    } else {
+        summary.textContent = `You have ${incompleteTodos.length} todo left`
+    }
+    
     return summary
 }
