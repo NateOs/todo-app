@@ -28,7 +28,7 @@ const removeTodo = (id) => {
 }
 
 //toggleTodo
-const toggleTodo = (id) => {
+const toggleTodo = (id) => {  //this functions sets the completed status of a todo to its opposite, either true or false, the result is toggled by the checkbox
     const TodoIndex2 = todos.findIndex( (todo) => {
         return todo.id === id
     })
@@ -38,16 +38,16 @@ const toggleTodo = (id) => {
 }
         
 //Render application todos based on filters
-//renderTodos
+//renderTodos that are completed or not
 const renderTodos = (todos, filters) => {
     const filteredTodos = todos.filter((todo) => {
-        const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
-        const hideCompletedMatch = !filters.hideCompleted || !todo.completed
+        const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase()) //includes returns a matching object of a todo that was searched
+        const hideCompletedMatch = !filters.hideCompleted || !todo.completed //returns either true or false 
         
         return searchTextMatch && hideCompletedMatch
     })
 
-    const incompleteTodos = filteredTodos.filter((todo) => !todo.completed)
+    const incompleteTodos = filteredTodos.filter((todo) => !todo.completed) //filter returns a false todo
 
     document.querySelector('#todos').innerHTML = ''
 
@@ -82,7 +82,7 @@ const generateTodoDOM = (todo) => {
     //checkbox
     checkbox.setAttribute('type', 'checkbox') //checkbox
     checkbox.checked = todo.completed
-    containerEl.appendChild(checkbox)
+    todoEl.appendChild(checkbox)
     checkbox.addEventListener('change',  (e) => {
         toggleTodo(todo.id)
         saveTodos(todos)
