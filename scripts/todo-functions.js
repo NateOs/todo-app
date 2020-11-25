@@ -52,10 +52,19 @@ const renderTodos = (todos, filters) => {
     document.querySelector('#todos').innerHTML = ''
 
     document.querySelector('#todos').appendChild(generateSummaryDOM(incompleteTodos))
+// Returning empty message if no todo
+    if (filteredTodos.length === 0) {
 
-    filteredTodos.forEach( (todo) => {
-        document.querySelector('#todos').appendChild(generateTodoDOM(todo))
-    })
+        const emptyMessage = document.createElement('p')
+        emptyMessage.textContent = 'No todos available'
+        document.querySelector('#todos').appendChild(emptyMessage)
+        emptyMessage.classList.add('empty-message')
+
+    } else {
+        filteredTodos.forEach( (todo) => {
+            document.querySelector('#todos').appendChild(generateTodoDOM(todo))
+        })
+    }  
 }
 
 //Get the DOM elements for an individual note
