@@ -18,7 +18,7 @@ const saveTodos = (todos) => {
     
 }
 
-//removetodos
+//removetodos by id
 const removeTodo = (id) => {
     const TodoIndex = todos.findIndex( (todo) =>  todo.id === id)
 
@@ -47,7 +47,7 @@ const renderTodos = (todos, filters) => {
         return searchTextMatch && hideCompletedMatch
     })
 
-    const incompleteTodos = filteredTodos.filter((todo) => !todo.completed) //filter returns a false todo
+    const incompleteTodos = filteredTodos.filter((todo) => !todo.completed) //filter returns a false todo.completed status
 
     document.querySelector('#todos').innerHTML = ''
 
@@ -82,7 +82,7 @@ const generateTodoDOM = (todo) => {
     //checkbox
     checkbox.setAttribute('type', 'checkbox') //checkbox
     checkbox.checked = todo.completed
-    todoEl.appendChild(checkbox)
+    todoText.appendChild(checkbox)
     checkbox.addEventListener('change',  (e) => {
         toggleTodo(todo.id)
         saveTodos(todos)
@@ -110,17 +110,14 @@ const generateTodoDOM = (todo) => {
     return todoText
 }
 
-//Get the DOM elements for list summary
 //generateSummaryDOM
 const generateSummaryDOM = (incompleteTodos) => {
     const summary = document.createElement('h2')
-    console.log(incompleteTodos.length)
 
     if (incompleteTodos.length > 1) {
         summary.textContent = `You have ${incompleteTodos.length} todos left`
     } else {
         summary.textContent = `You have ${incompleteTodos.length} todo left`
     }
-    
     return summary
 }
